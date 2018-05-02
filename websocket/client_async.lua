@@ -47,9 +47,13 @@ local new = function()
 	-- this must be defined before calling sync.extend()
 	self.sock_connect = function(self, host, port)
 		assert(corunning(), "You must call the connect function from a coroutine")
-		self.sock = socket.tcp()
+		print("socket._VERSION", socket._VERSION)
+		self.sock = socket.tcp6()
+		-- self.sock = socket.tcp()
 		self.sock:settimeout(0)
+		print("sock:connect", host, port)
 		local status, err = self.sock:connect(host,port)
+		print("sock:connect", status, err)
 		local sendt = { self.sock }
 		-- start polling for successful connection or error
 		while true do

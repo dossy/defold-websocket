@@ -173,6 +173,8 @@ local parse_url = function(url)
     host = address
     port = DEFAULT_PORTS[protocol]
   end
+  local ip = host:match("^%[(.+)%]$")
+  if ip then host = ip end
   if not uri or uri == '' then uri = '/' end
   return protocol, host, tonumber(port), uri
 end
